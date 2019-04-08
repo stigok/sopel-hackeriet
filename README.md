@@ -1,2 +1,3 @@
-# sopel-hackeriet
-Sopel module for hackeriet integration
+# Sopel Hackeriet
+
+sopel-hackeriet is a msopel module for Oslo Hackerspace
