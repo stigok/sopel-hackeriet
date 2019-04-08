@@ -10,7 +10,7 @@ def configure(config):
 def setup(bot):
     pass
 
-def shutdown(bot).
+def shutdown(bot):
     pass
 
 @module.commands('hackeriet')
