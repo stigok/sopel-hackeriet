@@ -4,10 +4,6 @@ from sopel import tools
 from sopel.formatting import bold, color
 from sopel.tools.time import get_timezone, format_time
 
-from .formatting import get_formatted_response
-from .formatting import fmt_repo
-from .formatting import fmt_name
-
 from threading import Thread
 import bottle
 import json
