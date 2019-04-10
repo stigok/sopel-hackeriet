@@ -6,6 +6,8 @@ from sopel import module
 from sopel.config.types import StaticSection, ValidatedAttribute
 from .webhook import setup_webhook, shutdown_webhook
 
+from sopel import tools
+
 class HackerietSection(StaticSection):
     secret    = ValidatedAttribute('secret', default=None)
     webhook   = ValidatedAttribute('webhook', bool, default=False)
