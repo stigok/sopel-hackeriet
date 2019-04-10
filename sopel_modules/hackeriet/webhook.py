@@ -50,36 +50,20 @@ class StoppableWSGIRefServer(bottle.ServerAdapter):
     def stop(self):
         self.server.shutdown()
 
-@bottle.get("/webhook")
+@bottle.get("/announce")
 def show_hook_info():
     return 'Listening for webhook connections!'
 
-#@bottle.post("/webhook")
-#def webhook():
-#    event = bottle.request.headers.get('X-GitHub-Event') or 'ping'
-#
-#    try:
-#        payload = bottle.request.json
-#    except:
-#        return bottle.abort(400, 'Something went wrong!')
-#
-#    if event == 'ping':
-#        channels = get_targets(payload['repository']['full_name'])
-#        for chan in channels:
-#            sopel_instance.msg(chan[0], '[{}] {}: {} (Your webhook is now enabled)'.format(
-#                          fmt_repo(payload['repository']['name'], chan),
-#                          fmt_name(payload['sender']['login'], chan),
-#                          payload['zen']))
-#        return '{"channels":' + json.dumps([chan[0] for chan in channels]) + '}'
-#
-#    payload['event'] = event
-#
-#    targets = get_targets(payload['repository']['full_name'])
-#
-#    for row in targets:
-#        messages = get_formatted_response(payload, row)
-#       # Write the formatted message(s) to the channel
-#        for message in messages:
-#            sopel_instance.msg(row[0], message)
-#
-#    return '{"channels":' + json.dumps([chan[0] for chan in targets]) + '}'
+@bottle.post("/announce")
+def announce():
+    event = bottle.request.headers.get('X-Announce-Event') or 'ping'
+
+    try:
+        payload = bottle.request.json
+    except:
+        return bottle.abort(400, 'Something went wrong!')
+
+    if event == 'ping':
+        return 'pong'
+
+    return bottle.requests.headers.get()
