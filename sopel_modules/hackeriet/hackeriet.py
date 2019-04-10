@@ -17,12 +17,12 @@ def configure(config):
     config.hackeriet.configure_setting('secret',    'Hackeriet API Client Secret')
     config.hackeriet.configure_setting('webhook',   'Enable webhook listener functionality')
     if config.hackeriet.webhook:
-        config.github.configure_setting('webhook_host', 'Listen IP for incoming webhooks (0.0.0.0 for all IPs)')
-        config.github.configure_setting('webhook_port', 'Listen port for incoming webhooks')
+        config.hackeriet.configure_setting('webhook_host', 'Listen IP for incoming webhooks (0.0.0.0 for all IPs)')
+        config.hackeriet.configure_setting('webhook_port', 'Listen port for incoming webhooks')
 
 def setup(bot):
     sopel.config.define_section('hackeriet', HackerietSection)
-    if sopel.config.github.webhook:
+    if sopel.config.hackeriet.webhook:
         setup_webhook(sopel)
 
 def shutdown(bot):
