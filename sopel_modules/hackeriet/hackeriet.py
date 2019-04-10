@@ -8,8 +8,6 @@ from .webhook import setup_webhook, shutdown_webhook
 
 from sopel import tools
 
-sopel_instance = None
-
 class HackerietSection(StaticSection):
     secret    = ValidatedAttribute('secret', default=None)
     webhook   = ValidatedAttribute('webhook', bool, default=False)
@@ -24,12 +22,12 @@ def configure(config):
         config.hackeriet.configure_setting('webhook_host', 'Listen IP for incoming webhooks (0.0.0.0 for all IPs)')
         config.hackeriet.configure_setting('webhook_port', 'Listen port for incoming webhooks')
 
-def setup(bot):
+def setup(sopel):
     sopel.config.define_section('hackeriet', HackerietSection)
     if sopel.config.hackeriet.webhook:
         setup_webhook(sopel)
 
-def shutdown(bot):
+def shutdown(sopel):
     shutdown_webhook(sopel)
 
 @module.commands('hackeriet')
