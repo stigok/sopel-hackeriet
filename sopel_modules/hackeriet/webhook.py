@@ -66,5 +66,6 @@ def announce():
     if event == 'ping':
         return 'pong'
 
+    print(bottle.request.headers)
     print(payload)
-    return bottle.requests.headers
+    return bottle.request.headers
