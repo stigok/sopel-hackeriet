@@ -3,16 +3,31 @@
 from __future__ import unicode_literals, absolute_import, division, print_function
 
 from sopel import module
+from sopel.config.types import StaticSection, ValidatedAttribute
+from .webhook import setup_webhook, shutdown_webhook
+
+class HackerietSection(StaticSection):
+    secret    = ValidatedAttribute('secret', default=None)
+    webhook   = ValidatedAttribute('webhook', bool, default=False)
+    webhook_host = ValidatedAttribute('webhook_host', default='0.0.0.0')
+    webhook_port = ValidatedAttribute('webhook_port', default='3334')
 
 def configure(config):
-    pass
+    config.define_section('hackeriet', HackerietSection, validate=False)
+    config.hackeriet.configure_setting('secret',    'Hackeriet API Client Secret')
+    config.hackeriet.configure_setting('webhook',   'Enable webhook listener functionality')
+    if config.hackeriet.webhook:
+        config.github.configure_setting('webhook_host', 'Listen IP for incoming webhooks (0.0.0.0 for all IPs)')
+        config.github.configure_setting('webhook_port', 'Listen port for incoming webhooks')
 
 def setup(bot):
-    pass
+    sopel.config.define_section('hackeriet', HackerietSection)
+    if sopel.config.github.webhook:
+        setup_webhook(sopel)
 
 def shutdown(bot):
-    pass
+    shutdown_webhook(sopel)
 
 @module.commands('hackeriet')
 def hello_world(bot, trigger):
-    bot.say('Hackeriet is a community operated hackerspace in Oslo where people tinker with software, networks, art and hardware, learn from each other. https://hackeriet.no')
+    bot.say('Hackeriet is a community operated hackerspace in Oslo where people tinker with software, networks, art, hardware and to learn from each other. https://hackeriet.no')
