@@ -64,10 +64,10 @@ def announce():
         return bottle.abort(400, 'Something went wrong!')
 
     if event == 'ding':
-        if payload['channel'] and payload['username'] and payload['ip_address']:
+        try:
             print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], payload['ip_address']))
             return '{"status": "accepted"}'
-        else:
+        except KeyError:
             return '{"status": "incomplete"}'
  
     if event == 'ping':
