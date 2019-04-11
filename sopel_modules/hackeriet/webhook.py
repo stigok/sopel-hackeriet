@@ -63,13 +63,11 @@ def announce():
     except:
         return bottle.abort(400, 'Something went wrong!')
 
-    if event = "ding":
+    if event == 'ding':
         print("Channel: %s, username: %s, IP: %s") % (payload['channel'], payload['username'], payload['ip_address'])
         return dong 
  
     if event == 'ping':
         return 'pong'
 
-    print(bottle.request)
-    print(payload)
-    return bottle.request
+    return "done" 
