@@ -68,4 +68,4 @@ def announce():
 
     print(bottle.request.headers)
     print(payload)
-    return bottle.request.headers
+    return bottle.request + payload
