@@ -64,19 +64,18 @@ def announce():
     except:
         return bottle.abort(400, 'Something went wrong!')
 
-
-
     if event == 'ding':
         try:
-            ip_address = bottle.request.headers.get('X-Forwarded-For') or False 
-            if not ip_address:
-                return bottle.abort(400, '{"status": "Please specify X-Forwarded-For"}') 
+            ip_address = bottle.request.headers.get('X-Forwarded-For') 
 
             print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address))
             return '{"status": "accepted"}'
 
         except KeyError:
             return bottle.abort(400, '{"status": "incomplete"}')
+
+        except NameError:
+            return bottle.abort(400, '{"status": "incomplete", "msg": "Missing X-Forwarded-For header"}')
 
     if event == 'ping':
         return 'pong'
