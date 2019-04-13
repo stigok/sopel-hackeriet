@@ -60,17 +60,21 @@ def announce():
     event = bottle.request.query.event or 'ping'
 
     try:
-        payload = bottle.request.json
+        content_type = bottle.request.headers.get('Content-Type')
+        if content_type == 'application/json':
+            payload = bottle.request.json
+        else:
+            print('Content-Type not application/json')
     except:
         return bottle.abort(400, 'Something went wrong!')
 
     if event == 'ding':
         try:
-            print(payload)
-            print("Channel: {}, username: {}, IP: ".format(payload['channel'], payload['username']))
+            ip_address = bottle.request.headers.get('X-Forwarded-For')
+            print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address))
             return '{"status": "accepted"}'
 
-        except KeyError:
+        except KeyError, TypeError:
             return bottle.abort(400, '{"status": "incomplete"}')
 
         except NameError:
