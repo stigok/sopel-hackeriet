@@ -68,7 +68,7 @@ def announce():
 
     if event == 'ding':
         try:
-            ip_address = bottle.request.headers.get('X-Forwarded-For') or None
+            ip_address = bottle.request.headers.get('X-Forwarded-For') or False 
             if not ip_address:
                 return bottle.abort(400, '{"status": "Please specify X-Forwarded-For"}') 
 
