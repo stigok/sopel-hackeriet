@@ -72,7 +72,7 @@ def announce():
             if not ip_address:
                 return bottle.abort(400, '{"status": "Please specify X-Forwarded-For"}') 
 
-            print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address]))
+            print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address))
             return '{"status": "accepted"}'
 
         except KeyError:
