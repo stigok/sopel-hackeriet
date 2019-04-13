@@ -54,22 +54,30 @@ class StoppableWSGIRefServer(bottle.ServerAdapter):
 def show_hook_info():
     return 'Listening for webhook connections!'
 
-@bottle.post("/announce")
+@bottle.post("/lv426")
 def announce():
-    event = bottle.request.headers.get('X-Announce-Event') or 'ping'
+    
+    event = bottle.request.query.event or 'ping'
 
     try:
         payload = bottle.request.json
     except:
         return bottle.abort(400, 'Something went wrong!')
 
+
+
     if event == 'ding':
         try:
-            print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], payload['ip_address']))
+            ip_address = bottle.request.headers.get('X-Forwarded-For') or None
+            if not ip_address:
+                return bottle.abort(400, '{"status": "Please specify X-Forwarded-For"}') 
+
+            print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address]))
             return '{"status": "accepted"}'
+
         except KeyError:
-            return '{"status": "incomplete"}'
- 
+            return bottle.abort(400, '{"status": "incomplete"}')
+
     if event == 'ping':
         return 'pong'
 
