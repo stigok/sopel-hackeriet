@@ -75,10 +75,10 @@ def announce():
             return '{"status": "accepted"}'
 
         except KeyError:
-            return bottle.abort(400, '{"status": "incomplete"}')
+            return bottle.HTTPResponse(status=400, body='{"status": "incomplete"}')
 
         except NameError:
-            return bottle.abort(400, '{"status": "incomplete", "msg": "Missing X-Forwarded-For header"}')
+            return bottle.HTTPResponse(status=400, body='{"status": "incomplete", "msg": "Missing X-Forwarded-For header"}')
 
     if event == 'ping':
         return 'pong'
