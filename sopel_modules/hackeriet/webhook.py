@@ -54,7 +54,7 @@ class StoppableWSGIRefServer(bottle.ServerAdapter):
 def show_hook_info():
     return 'Listening for webhook connections!'
 
-@bottle.post("/lv426")
+@bottle.post("/announce")
 def announce():
     
     event = bottle.request.query.event or 'ping'
