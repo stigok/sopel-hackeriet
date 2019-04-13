@@ -74,7 +74,7 @@ def announce():
             print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address))
             return '{"status": "accepted"}'
 
-        except KeyError, TypeError:
+        except KeyError:
             return bottle.abort(400, '{"status": "incomplete"}')
 
         except NameError:
