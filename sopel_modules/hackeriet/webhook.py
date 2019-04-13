@@ -68,7 +68,7 @@ def announce():
         try:
             print(bottle.request.headers.get('X-Forwarded-For'))
             ip_address = bottle.request.headers.get('X-Forwarded-For')
-            print ip_address
+            print(ip_address)
             print("Channel: {}, username: {}, IP: {}".format(payload['channel'], payload['username'], ip_address))
             return '{"status": "accepted"}'
 
