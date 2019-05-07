@@ -33,3 +33,7 @@ def shutdown(sopel):
 @module.commands('hackeriet')
 def hello_world(bot, trigger):
     bot.say('Hackeriet is a community operated hackerspace in Oslo where people tinker with software, networks, art, hardware and to learn from each other. https://hackeriet.no')
+
+@module.commands('brus')
+def brus_info(bot, trigger):
+    bot.say('Manage your Hackeriet brus account at https://brus.hackeriet.no/')
